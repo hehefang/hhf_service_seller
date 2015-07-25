@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhf.seller.dao.SellerAuditMapper">
+  <resultMap id="BaseResultMap" type="com.hhf.model.seller.SellerAudit">
+    <id column="audit_id" jdbcType="INTEGER" property="auditId" />
+    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="audit_result" jdbcType="CHAR" property="auditResult" />
+    <result column="audit_type" jdbcType="CHAR" property="auditType" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="audit_opinion" jdbcType="VARCHAR" property="auditOpinion" />
+    <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
+    <result column="audit_ip" jdbcType="VARCHAR" property="auditIp" />
+    <result column="Column_9" jdbcType="CHAR" property="column9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    audit_id, apply_id, audit_result, audit_type, auditor, audit_opinion, audit_date, 
+    audit_ip, Column_9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_seller_audit
+    where audit_id = #{auditId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_seller_audit
+    where audit_id = #{auditId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyProperty="auditId" parameterType="com.hhf.model.seller.SellerAudit" useGeneratedKeys="true">
+    insert into t_seller_audit (apply_id, audit_result, 
+      audit_type, auditor, audit_opinion, 
+      audit_date, audit_ip, Column_9
+      )
+    values (#{applyId,jdbcType=INTEGER}, #{auditResult,jdbcType=CHAR}, 
+      #{auditType,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{auditIp,jdbcType=VARCHAR}, #{column9,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="auditId" parameterType="com.hhf.model.seller.SellerAudit" useGeneratedKeys="true">
+    insert into t_seller_audit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="auditResult != null">
+        audit_result,
+      </if>
+      <if test="auditType != null">
+        audit_type,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="auditOpinion != null">
+        audit_opinion,
+      </if>
+      <if test="auditDate != null">
+        audit_date,
+      </if>
+      <if test="auditIp != null">
+        audit_ip,
+      </if>
+      <if test="column9 != null">
+        Column_9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="auditResult != null">
+        #{auditResult,jdbcType=CHAR},
+      </if>
+      <if test="auditType != null">
+        #{auditType,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null">
+        #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditIp != null">
+        #{auditIp,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        #{column9,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhf.model.seller.SellerAudit">
+    update t_seller_audit
+    <set>
+      <if test="applyId != null">
+        apply_id = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="auditResult != null">
+        audit_result = #{auditResult,jdbcType=CHAR},
+      </if>
+      <if test="auditType != null">
+        audit_type = #{auditType,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditOpinion != null">
+        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditIp != null">
+        audit_ip = #{auditIp,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        Column_9 = #{column9,jdbcType=CHAR},
+      </if>
+    </set>
+    where audit_id = #{auditId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhf.model.seller.SellerAudit">
+    update t_seller_audit
+    set apply_id = #{applyId,jdbcType=INTEGER},
+      audit_result = #{auditResult,jdbcType=CHAR},
+      audit_type = #{auditType,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_ip = #{auditIp,jdbcType=VARCHAR},
+      Column_9 = #{column9,jdbcType=CHAR}
+    where audit_id = #{auditId,jdbcType=INTEGER}
+  </update>  
+  
+  <!-- 扩展SQL -->
+  <select id="selectRecentAudit" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_SELLER_AUDIT
+	 where APPLY_ID = #{applyId,jdbcType=INTEGER}
+	 order by AUDIT_DATE desc
+	 limit 1
+  </select>
+  
+  <select id="selectByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_SELLER_AUDIT
+	 where APPLY_ID = #{applyId,jdbcType=INTEGER}
+	 order by AUDIT_DATE desc
+  </select>
+</mapper>
